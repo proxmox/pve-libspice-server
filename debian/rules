@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+override_dh_auto_configure:
+	CELT051_CFLAGS="-I$(CURDIR)"  CELT051_LIBS="-L$(CURDIR)/celt051/.libs -lcelt051 -lm" ./configure --prefix=/usr --without-sasl --disable-smartcard
+
+%:
+	dh $@  --with autotools-dev
+
+override_dh_auto_install:
+	$(MAKE) -C celt-0.5.1.3 install DESTDIR=$(CURDIR)/debian/tmp
+	dh_auto_install

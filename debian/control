@@ -1,0 +1,34 @@
+Source:  pve-libspice-server
+Priority: extra
+Maintainer: Proxmox Support Team <support@proxmox.com>
+Build-Depends: debhelper (>= 8.0.0), autotools-dev,  pkg-config, libspice-protocol-dev (>= 0.12.0~), libjpeg-dev, zlib1g-dev, python-pyparsing, libpixman-1-dev (>= 0.17.7~)
+Standards-Version: 3.9.3
+Section: libs
+
+Package: pve-libspice-server-dev
+Section: libdevel
+Architecture: amd64
+Depends: pve-libspice-server1 (= ${binary:Version}), ${misc:Depends}, libpixman-1-dev (>= 0.17.7~), libssl-dev, libxinerama-dev
+Suggests: pkg-config
+Description: SHeader and development files for SPICE server
+ SPICE is a remote display system built for virtual environments which
+ allows you to view a computing 'desktop' environment not only on the
+ machine where it is running, but from anywhere on the Internet and
+ from a wide variety of machine architectures.
+ .
+ This package contains the header files, static libraries and development
+ documentation for spice-server. 
+
+Package: pve-libspice-server1
+Section: libs
+Architecture: amd64
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: SPICE remote display system server library
+ SPICE is a remote display system built for virtual environments which
+ allows you to view a computing 'desktop' environment not only on the
+ machine where it is running, but from anywhere on the Internet and
+ from a wide variety of machine architectures.
+ .
+ This package contains the run-time libraries for any application that 
+ wishes to be a SPICE server.
+

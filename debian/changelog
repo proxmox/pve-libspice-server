@@ -1,3 +1,9 @@
+pve-libspice-server (0.12.4-1) unstable; urgency=low
+
+  * update to 0.12.4
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 19 Jul 2013 05:57:33 +0200
+
 pve-libspice-server (0.12.3-1) unstable; urgency=low
 
   * Initial release

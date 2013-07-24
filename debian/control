@@ -1,7 +1,7 @@
 Source:  pve-libspice-server
 Priority: extra
 Maintainer: Proxmox Support Team <support@proxmox.com>
-Build-Depends: debhelper (>= 8.0.0), autotools-dev,  pkg-config, libspice-protocol-dev (>= 0.12.0~), libjpeg-dev, zlib1g-dev, python-pyparsing, libpixman-1-dev (>= 0.17.7~)
+Build-Depends: debhelper (>= 8.0.0), autotools-dev,  pkg-config, libjpeg-dev, zlib1g-dev, python-pyparsing, libpixman-1-dev (>= 0.17.7~)
 Standards-Version: 3.9.3
 Section: libs
 

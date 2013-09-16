@@ -1,13 +1,14 @@
-RELEASE=3.0
+RELEASE=3.1
 
 PACKAGE=pve-libspice-server1
 PKGVERSION=0.12.4
-PKGRELEASE=1
+PKGRELEASE=2
 
 PKGDIR=spice-${PKGVERSION}
 PKGSRC=${PKGDIR}.tar.bz2
 
 ARCH:=$(shell dpkg-architecture -qDEB_BUILD_ARCH)
+GITVERSION:=$(shell cat .git/refs/heads/master)
 
 DEBS=pve-libspice-server1_${PKGVERSION}-${PKGRELEASE}_${ARCH}.deb  \
 pve-libspice-server-dev_${PKGVERSION}-${PKGRELEASE}_${ARCH}.deb		
@@ -28,6 +29,7 @@ ${DEBS}: ${PKGSRC}
 	cd ${PKGDIR}/${CELTDIR}; ./configure --prefix=/usr; make
 	# now compile spice server
 	cp -a debian ${PKGDIR}/debian
+	echo "git clone git://git.proxmox.com/git/pve-libspice-server.git\\ngit checkout ${GITVERSION}" > ${PKGDIR}/debian/SOURCE
 	cd ${PKGDIR}; dpkg-buildpackage -rfakeroot -b -us -uc
 
 

@@ -1,0 +1,64 @@
+Index: new/server/reds.c
+===================================================================
+--- new.orig/server/reds.c	2013-10-22 10:08:45.000000000 +0200
++++ new/server/reds.c	2013-10-22 12:10:15.000000000 +0200
+@@ -108,6 +108,7 @@
+ static int sasl_enabled = 0; // sasl disabled by default
+ #if HAVE_SASL
+ static char *sasl_appname = NULL; // default to "spice" if NULL
++static sasl_callback_t *sasl_callbacks = NULL;
+ #endif
+ static char *spice_name = NULL;
+ static bool spice_uuid_is_set = FALSE;
+@@ -2540,7 +2541,7 @@
+                           NULL, /* User realm */
+                           localAddr,
+                           remoteAddr,
+-                          NULL, /* Callbacks, not needed */
++                          sasl_callbacks,
+                           SASL_SUCCESS_DATA,
+                           &sasl->conn);
+     free(localAddr);
+@@ -4104,6 +4105,17 @@
+     return 0;
+ #else
+     return -1;
++#endif
++}
++
++SPICE_GNUC_VISIBLE int spice_server_set_sasl_callbacks(SpiceServer *s,  void *saslcb)
++{
++    spice_assert(reds == s);
++#if HAVE_SASL
++    sasl_callbacks = (sasl_callback_t *)saslcb;
++    return 0;
++#else
++    return -1;
+ #endif
+ }
+ 
+Index: new/server/spice-server.syms
+===================================================================
+--- new.orig/server/spice-server.syms	2013-10-17 13:37:05.000000000 +0200
++++ new/server/spice-server.syms	2013-10-22 12:08:39.000000000 +0200
+@@ -145,3 +145,8 @@
+ global:
+     spice_server_set_agent_file_xfer;
+ } SPICE_SERVER_0.12.3;
++
++SPICE_SERVER_0.12.5 {
++global:
++    spice_server_set_sasl_callbacks;
++} SPICE_SERVER_0.12.4;
+Index: new/server/spice.h
+===================================================================
+--- new.orig/server/spice.h	2013-10-21 07:33:01.000000000 +0200
++++ new/server/spice.h	2013-10-22 12:03:36.000000000 +0200
+@@ -446,6 +446,7 @@
+ int spice_server_set_noauth(SpiceServer *s);
+ int spice_server_set_sasl(SpiceServer *s, int enabled);
+ int spice_server_set_sasl_appname(SpiceServer *s, const char *appname);
++int spice_server_set_sasl_callbacks(SpiceServer *s, void *saslcb);
+ int spice_server_set_ticket(SpiceServer *s, const char *passwd, int lifetime,
+                             int fail_if_connected, int disconnect_if_connected);
+ int spice_server_set_tls(SpiceServer *s, int port,

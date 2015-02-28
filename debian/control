@@ -10,6 +10,9 @@ Section: libdevel
 Architecture: amd64
 Depends: pve-libspice-server1 (= ${binary:Version}), ${misc:Depends}, libpixman-1-dev (>= 0.17.7~), libssl-dev, libxinerama-dev
 Suggests: pkg-config
+Conflicts: libspice-server-dev
+Provides: libspice-server-dev
+Replaces: libspice-server-dev
 Description: Header and development files for SPICE server
  SPICE is a remote display system built for virtual environments which
  allows you to view a computing 'desktop' environment not only on the

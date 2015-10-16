@@ -1,3 +1,9 @@
+pve-libspice-server (0.12.5-2) unstable; urgency=medium
+
+  * fix CVE-2015-3247, CVE-2015-5260, CVE-2015-5261
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 16 Oct 2015 10:21:05 +0200
+
 pve-libspice-server (0.12.5-1) unstable; urgency=medium
 
   * new upstream

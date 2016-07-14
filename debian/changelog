@@ -1,3 +1,9 @@
+pve-libspice-server (0.12.8-1) unstable; urgency=medium
+
+  * update to 0.12.8 (Fix CVE-2016-0749, CVE-2016-2150)
+
+ -- Proxmox Support Team <support@proxmox.com>  Thu, 14 Jul 2016 06:35:24 +0200
+
 pve-libspice-server (0.12.5-2) unstable; urgency=medium
 
   * fix CVE-2015-3247, CVE-2015-5260, CVE-2015-5261

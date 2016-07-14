@@ -1,8 +1,8 @@
 RELEASE=4.0
 
 PACKAGE=pve-libspice-server1
-PKGVERSION=0.12.5
-PKGRELEASE=2
+PKGVERSION=0.12.8
+PKGRELEASE=1
 
 PKGDIR=spice-${PKGVERSION}
 PKGSRC=${PKGDIR}.tar.bz2
@@ -40,15 +40,7 @@ download:
 
 .PHONY: upload
 upload: ${DEBS}
-	umount /pve/${RELEASE}; mount /pve/${RELEASE} -o rw
-	mkdir -p /pve/${RELEASE}/extra
-	rm -f /pve/${RELEASE}/extra/Packages*
-	rm -f /pve/${RELEASE}/extra/pve-libspice-server1_*.deb
-	rm -f /pve/${RELEASE}/extra/pve-libspice-server-dev_*.deb
-	rm -f /pve/${RELEASE}/extra/pve-libspice-server1_*.deb
-	cp ${DEBS} /pve/${RELEASE}/extra
-	cd /pve/${RELEASE}/extra; dpkg-scanpackages . /dev/null > Packages; gzip -9c Packages > Packages.gz
-	umount /pve/${RELEASE}; mount /pve/${RELEASE} -o ro
+	tar cf - ${DEBS}|ssh repoman@repo.proxmox.com upload
 
 distclean: clean
 

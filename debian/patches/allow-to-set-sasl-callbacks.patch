@@ -10,11 +10,11 @@ Index: new/server/spice-server.syms
      spice_server_get_best_playback_rate;
      spice_server_set_playback_rate;
      spice_server_get_best_record_rate;
-Index: new/server/spice.h
+Index: new/server/spice-server.h
 ===================================================================
---- new.orig/server/spice.h
-+++ new/server/spice.h
-@@ -457,6 +457,7 @@ int spice_server_set_exit_on_disconnect(
+--- new.orig/server/spice-server.h
++++ new/server/spice-server.h
+@@ -53,6 +53,7 @@ int spice_server_set_exit_on_disconnect(
  int spice_server_set_noauth(SpiceServer *s);
  int spice_server_set_sasl(SpiceServer *s, int enabled);
  int spice_server_set_sasl_appname(SpiceServer *s, const char *appname);
@@ -45,7 +45,7 @@ Index: new/server/reds_stream.c
  typedef struct RedsSASL {
      sasl_conn_t *conn;
  
-@@ -966,7 +978,7 @@ bool reds_sasl_start_auth(RedsStream *st
+@@ -976,7 +988,7 @@ bool reds_sasl_start_auth(RedsStream *st
                            NULL, /* User realm */
                            localAddr,
                            remoteAddr,

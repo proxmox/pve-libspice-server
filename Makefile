@@ -10,8 +10,9 @@ PKGSRC=${PKGDIR}.tar.bz2
 ARCH:=$(shell dpkg-architecture -qDEB_BUILD_ARCH)
 GITVERSION:=$(shell cat .git/refs/heads/master)
 
-DEBS=pve-libspice-server1_${PKGVERSION}-${PKGRELEASE}_${ARCH}.deb  \
-pve-libspice-server-dev_${PKGVERSION}-${PKGRELEASE}_${ARCH}.deb		
+DEB=pve-libspice-server1_${PKGVERSION}-${PKGRELEASE}_${ARCH}.deb
+DEB_DBG=pve-libspice-server-dev_${PKGVERSION}-${PKGRELEASE}_${ARCH}.deb
+DEBS=$(DEB) $(DEB_DBG)
 
 CELTDIR=celt-0.5.1.3
 CELTSRC=${CELTDIR}.tar.gz
@@ -19,7 +20,10 @@ CELTSRC=${CELTDIR}.tar.gz
 all: ${DEBS}
 	echo ${DEBS}
 
-${DEBS}: ${PKGSRC}
+.PHONY: deb
+deb: $(DEB)
+$(DEB_DBG): $(DEB)
+$(DEB): ${PKGSRC}
 	echo ${DEBS}
 	rm -rf ${PKGDIR}
 	tar xf ${PKGSRC}

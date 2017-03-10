@@ -50,7 +50,7 @@ distclean: clean
 
 .PHONY: clean
 clean:
-	rm -rf *~ debian/*~ *_${ARCH}.deb *.changes *.dsc ${PKGDIR}
+	rm -rf *~ debian/*~ *_${ARCH}.deb *.changes *.dsc *.buildinfo ${PKGDIR}
 
 .PHONY: dinstall
 dinstall: ${DEBS}

@@ -34,7 +34,7 @@ $(DEB): ${PKGSRC}
 	# now compile spice server
 	cp -a debian ${PKGDIR}/debian
 	echo "git clone git://git.proxmox.com/git/pve-libspice-server.git\\ngit checkout ${GITVERSION}" > ${PKGDIR}/debian/SOURCE
-	cd ${PKGDIR}; dpkg-buildpackage -rfakeroot -b -us -uc
+	cd ${PKGDIR}; dpkg-buildpackage -b -us -uc
 
 
 .PHONY: download

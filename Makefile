@@ -1,7 +1,7 @@
 RELEASE=4.0
 
 PACKAGE=pve-libspice-server1
-PKGVERSION=0.12.8
+PKGVERSION=0.14.1
 PKGRELEASE=3
 
 PKGDIR=spice-${PKGVERSION}
@@ -40,7 +40,7 @@ $(DEB): ${PKGSRC}
 .PHONY: download
 download:
 	rm -f ${PKGSRC} 
-	wget http://spice-space.org/download/releases/spice-${PKGVERSION}.tar.bz2
+	wget http://spice-space.org/download/releases/spice-server/spice-${PKGVERSION}.tar.bz2
 
 .PHONY: upload
 upload: ${DEBS}

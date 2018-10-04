@@ -4,7 +4,7 @@
 #export DH_VERBOSE=1
 
 override_dh_auto_configure:
-	CELT051_CFLAGS="-I$(CURDIR)"  CELT051_LIBS="-L$(CURDIR)/celt051/.libs -lcelt051 -lm" ./configure --prefix=/usr --with-sasl --disable-smartcard
+	CELT051_CFLAGS="-I$(CURDIR)"  CELT051_LIBS="-L$(CURDIR)/celt051/.libs -lcelt051 -lm" ./configure --prefix=/usr --with-sasl --disable-smartcard --enable-celt051
 
 %:
 	dh $@  -with quilt --with autotools-dev

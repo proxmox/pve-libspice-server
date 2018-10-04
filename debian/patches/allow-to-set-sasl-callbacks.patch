@@ -22,10 +22,10 @@ Index: new/server/spice-server.h
  int spice_server_set_ticket(SpiceServer *s, const char *passwd, int lifetime,
                              int fail_if_connected, int disconnect_if_connected);
  int spice_server_set_tls(SpiceServer *s, int port,
-Index: new/server/reds_stream.c
+Index: new/server/red-stream.c
 ===================================================================
---- new.orig/server/reds_stream.c
-+++ new/server/reds_stream.c
+--- new.orig/server/red-stream.c
++++ new/server/red-stream.c
 @@ -48,6 +48,18 @@ extern SpiceCoreInterface *core;
  #if HAVE_SASL
  #include <sasl/sasl.h>
@@ -42,10 +42,10 @@ Index: new/server/reds_stream.c
 +#endif
 +}
 +
- typedef struct RedsSASL {
+ typedef struct RedSASL {
      sasl_conn_t *conn;
  
-@@ -976,7 +988,7 @@ bool reds_sasl_start_auth(RedsStream *st
+@@ -976,7 +988,7 @@ bool red_sasl_start_auth(RedsStream *st
                            NULL, /* User realm */
                            localAddr,
                            remoteAddr,

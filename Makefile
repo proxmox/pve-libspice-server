@@ -28,6 +28,7 @@ $(DEB): ${PKGSRC}
 	cp -a debian ${PKGDIR}/debian
 	echo "git clone git://git.proxmox.com/git/pve-libspice-server.git\\ngit checkout ${GITVERSION}" > ${PKGDIR}/debian/SOURCE
 	cd ${PKGDIR}; dpkg-buildpackage -b -us -uc
+	lintian ${DEBS}
 
 
 .PHONY: download

@@ -1,1 +1,2 @@
 allow-to-set-sasl-callbacks.patch
+0001-memslot-Fix-off-by-one-error-in-group-slot-boundary-.patch

@@ -26,6 +26,7 @@ $(DEB): ${PKGSRC}
 	tar xf ${PKGSRC}
 	# now compile spice server
 	cp -a debian ${PKGDIR}/debian
+	cd pki/; cp ca-cert.pem server-cert.pem server-key.pem ../${PKGDIR}/server/tests/pki/
 	echo "git clone git://git.proxmox.com/git/pve-libspice-server.git\\ngit checkout ${GITVERSION}" > ${PKGDIR}/debian/SOURCE
 	cd ${PKGDIR}; dpkg-buildpackage -b -us -uc
 	lintian ${DEBS}

@@ -1,8 +1,11 @@
-RELEASE=4.0
+SOURCE=spice
+PACKAGE=libspice-server1
 
-PACKAGE=pve-libspice-server1
-PKGVERSION=0.14.1
-PKGRELEASE=2
+PKGVERSION=0.14.2
+DEBVERSION=0.14.2-4
+PVERELEASE=pve6
+
+VERSION := $(DEBVERSION)~$(PVERELEASE)
 
 PKGDIR=spice-${PKGVERSION}
 PKGSRC=${PKGDIR}.tar.bz2
@@ -10,8 +13,8 @@ PKGSRC=${PKGDIR}.tar.bz2
 ARCH:=$(shell dpkg-architecture -qDEB_BUILD_ARCH)
 GITVERSION:=$(shell cat .git/refs/heads/master)
 
-DEB=pve-libspice-server1_${PKGVERSION}-${PKGRELEASE}_${ARCH}.deb
-DEB_DBG=pve-libspice-server-dev_${PKGVERSION}-${PKGRELEASE}_${ARCH}.deb
+DEB=$(PACKAGE)_${VERSION}_${ARCH}.deb
+DEB_DBG=$(PACKAGE)-dbgsym_${VERSION}_${ARCH}.deb
 DEBS=$(DEB) $(DEB_DBG)
 
 all: ${DEBS}
@@ -20,32 +23,32 @@ all: ${DEBS}
 .PHONY: deb
 deb: $(DEB)
 $(DEB_DBG): $(DEB)
-$(DEB): ${PKGSRC}
-	echo ${DEBS}
+$(DEB): $(SOURCE)_$(PKGVERSION).orig.tar.bz2 $(SOURCE)_$(DEBVERSION).debian.tar.xz
 	rm -rf ${PKGDIR}
-	tar xf ${PKGSRC}
-	# now compile spice server
-	cp -a debian ${PKGDIR}/debian
-	cd pki/; cp ca-cert.pem server-cert.pem server-key.pem ../${PKGDIR}/server/tests/pki/
-	echo "git clone git://git.proxmox.com/git/pve-libspice-server.git\\ngit checkout ${GITVERSION}" > ${PKGDIR}/debian/SOURCE
+	tar xf $(SOURCE)_$(PKGVERSION).orig.tar.bz2
+	tar xf $(SOURCE)_$(DEBVERSION).debian.tar.xz -C $(SOURCE)-$(PKGVERSION)
+	cat changelog.Debian $(PKGDIR)/debian/changelog > $(PKGDIR)/debian/changelog.tmp
+	mv $(PKGDIR)/debian/changelog.tmp $(PKGDIR)/debian/changelog
 	cd ${PKGDIR}; dpkg-buildpackage -b -us -uc
 	lintian ${DEBS}
 
 
 .PHONY: download
-download:
-	rm -f ${PKGSRC} 
-	wget http://spice-space.org/download/releases/spice-server/spice-${PKGVERSION}.tar.bz2
+download: $(SOURCE)_$(PKGVERSION).orig.tar.bz2 $(SOURCE)_$(DEBVERSION).debian.tar.xz
+$(SOURCE)_$(PKGVERSION).orig.tar.bz2: $(SOURCE)_$(DEBVERSION).debian.tar.xz
+$(SOURCE)_$(DEBVERSION).debian.tar.xz:
+	dget http://deb.debian.org/debian/pool/main/s/spice/spice_0.14.2-4.dsc
 
 .PHONY: upload
 upload: ${DEBS}
 	tar cf - ${DEBS}|ssh repoman@repo.proxmox.com -- upload --product pve --dist stretch --arch ${ARCH}
 
 distclean: clean
+	rm -f *.tar.*
 
 .PHONY: clean
 clean:
-	rm -rf *~ debian/*~ *_${ARCH}.deb *.changes *.dsc *.buildinfo ${PKGDIR}
+	rm -rf *~ debian/*~ *.deb *.changes *.dsc *.buildinfo ${PKGDIR}
 
 .PHONY: dinstall
 dinstall: ${DEBS}

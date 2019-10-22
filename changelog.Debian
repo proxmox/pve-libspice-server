@@ -1,0 +1,11 @@
+spice (0.14.2-4~pve6) pve; urgency=medium
+
+  [ Michael Tokarev ]
+  * disable failing test-listen (Closes: #941006)
+  * add fix-test-qxl-parsing-on-ppc64el-and-armhf.patch
+  * stop using dh_autoreconf as we do not patch autoconf/automake anymore
+
+  [ Proxmox Support Team ]
+  * rebuild for Debian Buster / Proxmox VE 6
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 22 Oct 2019 15:04:20 +0200

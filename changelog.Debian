@@ -1,3 +1,11 @@
+spice (0.14.2-4~pve6+1) pve; urgency=medium
+
+  [ Proxmox Support Team ]
+  * backport "red-qxl: Make sure we have at least one monitor" to fix display
+    resolution resize
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 25 Oct 2019 14:14:30 +0200
+
 spice (0.14.2-4~pve6) pve; urgency=medium
 
   [ Michael Tokarev ]

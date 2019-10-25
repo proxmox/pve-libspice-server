@@ -29,6 +29,7 @@ $(DEB): $(SOURCE)_$(PKGVERSION).orig.tar.bz2 $(SOURCE)_$(DEBVERSION).debian.tar.
 	tar xf $(SOURCE)_$(DEBVERSION).debian.tar.xz -C $(SOURCE)-$(PKGVERSION)
 	cat changelog.Debian $(PKGDIR)/debian/changelog > $(PKGDIR)/debian/changelog.tmp
 	mv $(PKGDIR)/debian/changelog.tmp $(PKGDIR)/debian/changelog
+	cd $(PKGDIR); for patch in ../patches/*.patch; do echo "applying patch '$$patch'" && patch -p1 < "$${patch}"; done
 	cd ${PKGDIR}; dpkg-buildpackage -b -us -uc
 	lintian ${DEBS}
 

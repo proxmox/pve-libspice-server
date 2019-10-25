@@ -1,0 +1,33 @@
+From 4f2d90a7849fafebc74dec608f9b4ffa9400d1a6 Mon Sep 17 00:00:00 2001
+From: Frediano Ziglio <fziglio@redhat.com>
+Date: Thu, 19 Sep 2019 11:17:08 +0100
+Subject: red-qxl: Make sure we have at least one monitor
+
+It does not make sense to have a graphic card without a monitor.
+In spice_qxl_set_max_monitors we prevent to set 0 monitors, do
+the same in spice_qxl_set_device_info.
+
+This fixes https://bugzilla.redhat.com/show_bug.cgi?id=1691721.
+
+Signed-off-by: Frediano Ziglio <fziglio@redhat.com>
+Tested-by: Dr. David Alan Gilbert <dgilbert@redhat.com>
+Acked-by: Victor Toso <victortoso@redhat.com>
+---
+ server/red-qxl.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/server/red-qxl.c b/server/red-qxl.c
+index 0334827..dbfcd44 100644
+--- a/server/red-qxl.c
++++ b/server/red-qxl.c
+@@ -804,7 +804,7 @@ void spice_qxl_set_device_info(QXLInstance *instance,
+     }
+ 
+     instance->st->monitors_count = device_display_id_count;
+-    instance->st->max_monitors = device_display_id_count;
++    instance->st->max_monitors = MAX(1u, device_display_id_count);
+ 
+     reds_send_device_display_info(red_qxl_get_server(instance->st));
+ }
+-- 
+cgit v1.1
